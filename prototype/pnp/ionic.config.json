@@ -1,7 +1,0 @@
-{
-  "name": "pnp",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
