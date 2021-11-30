@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "built",
+        "rootDir": "src",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "typeRoots": ["node_modules/@types"],
+        "allowSyntheticDefaultImports": true 
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "built/**/*",
+        "node_modules"
+    ]
+}
