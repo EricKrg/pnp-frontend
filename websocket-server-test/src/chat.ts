@@ -11,6 +11,8 @@ export class ChatWSS implements WSSComponent {
 
     clients: WebSocket[] = [];
 
+    msg: any[] = [];
+
     constructor(port: number, route: WSSRoutes) {
         this.port = port;
         this.route = route;
@@ -24,12 +26,11 @@ export class ChatWSS implements WSSComponent {
             //ws.binaryType = "arraybuffer"
             this.clients.push(ws)
 
-            
-
             ws.onmessage = (msg: MessageEvent<any>) => {
                 console.log("event", msg.data)
+                this.msg.push(JSON.parse(msg.data));
                 for (const client of this.clients) {
-                    client.send(msg.data);
+                    client.send(JSON.stringify(this.msg));
                 }
             }
         });

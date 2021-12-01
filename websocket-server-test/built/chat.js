@@ -5,6 +5,7 @@ var ws_1 = require("ws");
 var ChatWSS = /** @class */ (function () {
     function ChatWSS(port, route) {
         this.clients = [];
+        this.msg = [];
         this.port = port;
         this.route = route;
     }
@@ -18,9 +19,10 @@ var ChatWSS = /** @class */ (function () {
             _this.clients.push(ws);
             ws.onmessage = function (msg) {
                 console.log("event", msg.data);
+                _this.msg.push(JSON.parse(msg.data));
                 for (var _i = 0, _a = _this.clients; _i < _a.length; _i++) {
                     var client = _a[_i];
-                    client.send(msg.data);
+                    client.send(JSON.stringify(_this.msg));
                 }
             };
         });
