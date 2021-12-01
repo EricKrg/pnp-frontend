@@ -32,13 +32,13 @@ export class ChatWebsocketService implements CanActivate {
   public connect(url: string): void {
     this.socket = this.getNewWebSocket(url);
     this.socket.subscribe({
-      next: (player: any[]) => {
-        console.log("incoming", player)
-        const currentPlayers = [];
-        player.forEach(i => {
-          currentPlayers.push(JSON.parse(i));
+      next: (msg: any[]) => {
+        console.log("incoming msg", msg)
+        const currentMsg = [];
+        msg.forEach(i => {
+          currentMsg.push(JSON.parse(i));
         })
-        this.msg.next(currentPlayers);
+        this.msg.next(currentMsg);
       },
       error: err => console.log("error", err)
     })

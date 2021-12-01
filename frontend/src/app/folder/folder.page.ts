@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ChatComponent } from '../components/chat/chat.component';
 
 @Component({
   selector: 'app-folder',
@@ -9,10 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 export class FolderPage implements OnInit {
   public folder: string;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(public modalController: ModalController,
+    private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
+  }
+
+  async openChat(): Promise<void> {
+    const login = await this.modalController.create({
+      component: ChatComponent
+    })
+    await login.present();
   }
 
 }

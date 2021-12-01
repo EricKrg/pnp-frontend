@@ -49,7 +49,6 @@ export class PlayerWebsocketService implements CanActivate {
   }
 
   sendMessage(user: User) {
-    console.log("send")
     this.socket.next(JSON.stringify(user));
   }
 

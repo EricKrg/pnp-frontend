@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/pnp.interfaces';
 import { ChatWebsocketService } from 'src/app/service/chatwebsocket.service';
+import { SessionService } from 'src/app/session.service';
 
 @Component({
   selector: 'app-chat',
@@ -11,22 +12,42 @@ export class ChatComponent implements OnInit {
 
   inputMsg: string; 
 
-  msg: any[] = []
+  chatMsg: string | undefined = "";
 
-  constructor(private chatWSSSocketService: ChatWebsocketService) { }
+  msg: {user: User, msg: string}[] = []
+
+  constructor(private chatWSSSocketService: ChatWebsocketService,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.chatWSSSocketService.msg.subscribe({
-      next: (msglist: any[]) => {
-        console.log(msglist)
+      next: (msglist: {user: User, msg: string}[]) => {
+        console.log("chat",msglist)
         this.msg = msglist;
       }
-      
     });
+    this.chatMsg = "ping";
+    this.sendMsg();
   }
 
-  sendMsg(user: User, msg: string): void {
-    this.chatWSSSocketService.sendMessage(user, msg)
+  sendMsg(): void {
+    console.log("send!")
+    if (!this.chatMsg  || this.chatMsg === "") {
+      return;
+    }
+    this.chatWSSSocketService.sendMessage(this.sessionService.getCurrentUser(), this.chatMsg);
+    this.chatMsg = "";
+  }
+
+  getColor(user: User): string {
+    if (user.id === this.sessionService.getCurrentUser().id) {
+      return "primary";
+    }
+    return "light";
+  }
+
+  isCurrentUser(user: User): boolean {
+    return user.id === this.sessionService.getCurrentUser().id;
   }
 
 }

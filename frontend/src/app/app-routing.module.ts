@@ -12,8 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'folder/:id',
-    canActivate: [SessionService, PlayerWebsocketService, ChatWebsocketService],
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    canActivate: [
+      SessionService, 
+      PlayerWebsocketService,
+      ChatWebsocketService],
+    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   }
 ];
 
@@ -23,4 +26,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
