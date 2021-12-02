@@ -8,6 +8,7 @@ import { FolderPageRoutingModule } from './folder-routing.module';
 
 import { FolderPage } from './folder.page';
 import { BrowserModule } from '@angular/platform-browser';
+import { MapComponent } from '../components/map/map.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { BrowserModule } from '@angular/platform-browser';
     IonicModule,
     FolderPageRoutingModule
   ],
-  declarations: [FolderPage]
+  declarations: [FolderPage, MapComponent]
 })
 export class FolderPageModule {}

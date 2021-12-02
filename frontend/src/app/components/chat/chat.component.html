@@ -1,20 +1,17 @@
-<ion-list class="chat-wrapper">
-  <ion-item *ngFor="let m of msg" [color]="getColor(m.user)">
-    <!-- <ion-avatar slot="start">
-      <img src="./avatar-finn.png">
-    </ion-avatar> -->
-    <ion-note [slot]="isCurrentUser(m.user) ? 'end': 'start'"
-              color="tertiary"
-              style="width: 5%; margin: 0px;">
-      {{m.user.name}}
-    </ion-note>
-    <ion-label>
-      
-      <!-- <h3>{{m.user.role}}</h3> -->
-      
-    </ion-label>
-    <p>{{m.msg}}</p> 
-  </ion-item>
+<ion-list style="overflow-x:scroll; padding: 5px;">
+  <ion-badge style="margin: 5px;" color="primary" *ngFor="let user of chatUser">{{user}}</ion-badge>
+</ion-list>
+<ion-list #chat class="chat-wrapper">
+  <ion-card *ngFor="let m of msg" [color]="isCurrentUser(m.user) ? 'primary': 'light'">
+    <ion-card-header>
+      <ion-card-subtitle>
+        {{m.user.name}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content [style.text-align]="isCurrentUser(m.user) ? 'end' : 'start'">
+      {{m.msg}}
+    </ion-card-content>
+  </ion-card>
 </ion-list>
 <ion-searchbar #chatmsg animated autocorrect search-icon="send-outline" color="primary" placeholder="Ahoi"
               [(ngModel)]="chatMsg"

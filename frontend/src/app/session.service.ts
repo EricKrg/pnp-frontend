@@ -10,12 +10,11 @@ import { PlayerWebsocketService } from './service/playerwebsocket.service';
 })
 export class SessionService implements CanActivate {
 
-  private currentUser: User | undefined =  undefined
-  // {
-  //   id: "1",
-  //   name: "Eric",
-  //   role: Roles.Player
-  // };
+  private currentUser: User | undefined = {
+     id: "1",
+     name: "Eric",
+    role: Roles.Player
+   };
 
   constructor(public modalController: ModalController,
               private playerWSService: PlayerWebsocketService) {}
